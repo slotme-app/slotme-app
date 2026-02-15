@@ -1,0 +1,45 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/slotme_test
+    username: slotme
+    password: slotme_dev
+
+  ai:
+    openai:
+      api-key: test-key
+      chat:
+        options:
+          model: gpt-4.1
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
+      - org.springframework.ai.autoconfigure.openai.OpenAiAutoConfiguration
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    clean-disabled: false
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+
+slotme:
+  jwt:
+    secret: test-secret-key-must-be-at-least-256-bits-long-for-hs256-signing-algorithm
+    access-token-expiration-ms: 3600000
+    refresh-token-expiration-ms: 2592000000
+  whatsapp:
+    api-url: https://graph.facebook.com/v21.0
+    access-token: test-token
+    verify-token: test-verify
+    phone-number-id: test-phone-id
+    app-secret: test-secret
+
+logging:
+  level:
+    com.slotme: INFO
+    org.springframework.security: WARN

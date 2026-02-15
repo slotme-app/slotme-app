@@ -1,0 +1,59 @@
+package com.slotme.config;
+
+import com.slotme.tenant.TenantContext;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.util.UUID;
+
+@Component
+@Order(1)
+public class RequestLoggingFilter extends OncePerRequestFilter {
+
+    private static final Logger log = LoggerFactory.getLogger(RequestLoggingFilter.class);
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                     HttpServletResponse response,
+                                     FilterChain chain) throws ServletException, IOException {
+        String requestId = request.getHeader("X-Request-ID");
+        if (requestId == null || requestId.isBlank()) {
+            requestId = UUID.randomUUID().toString().substring(0, 8);
+        }
+
+        MDC.put("requestId", requestId);
+        response.setHeader("X-Request-ID", requestId);
+
+        long startTime = System.currentTimeMillis();
+        try {
+            chain.doFilter(request, response);
+        } finally {
+            UUID tenantId = TenantContext.getCurrentTenantId();
+            if (tenantId != null) {
+                MDC.put("tenantId", tenantId.toString());
+            }
+
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth != null && auth.getPrincipal() instanceof String userId) {
+                MDC.put("userId", userId);
+            }
+
+            long duration = System.currentTimeMillis() - startTime;
+            log.info("{} {} {} {}ms", request.getMethod(), request.getRequestURI(),
+                    response.getStatus(), duration);
+
+            MDC.clear();
+        }
+    }
+}

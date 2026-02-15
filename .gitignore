@@ -1,0 +1,35 @@
+# IDE
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# Screenshots & test evidence
+*.png
+
+# Environment files
+.env
+*.env.local
+.env.production
+
+# Logs
+*.log
+
+# Gradle
+.gradle/
+build/
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+
+# Playwright
+e2e/.auth/
+test-results/
+playwright-report/
+blob-report/
+.playwright-mcp/
+
+# Claude
+.claude/

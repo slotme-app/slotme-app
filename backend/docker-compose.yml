@@ -1,0 +1,45 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    ports:
+      - "8083:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/slotme
+      - SPRING_DATASOURCE_USERNAME=slotme
+      - SPRING_DATASOURCE_PASSWORD=slotme_dev
+      - SPRING_DATA_REDIS_HOST=redis
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-sk-placeholder}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  postgres:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: slotme
+      POSTGRES_USER: slotme
+      POSTGRES_PASSWORD: slotme_dev
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U slotme"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+
+volumes:
+  pgdata:
+  redisdata:

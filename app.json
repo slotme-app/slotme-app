@@ -1,0 +1,54 @@
+{
+  "name": "SlotMe",
+  "description": "AI-powered salon booking and management platform",
+  "keywords": ["spring-boot", "react", "ai", "booking", "salon"],
+  "website": "https://slotme.io",
+  "repository": "https://github.com/your-org/slotme-app",
+  "buildpacks": [
+    {
+      "url": "heroku/gradle"
+    }
+  ],
+  "addons": [
+    {
+      "plan": "heroku-postgresql:mini"
+    },
+    {
+      "plan": "heroku-redis:mini"
+    }
+  ],
+  "env": {
+    "SPRING_PROFILES_ACTIVE": {
+      "description": "Spring Boot profile",
+      "value": "prod"
+    },
+    "JWT_SECRET_KEY": {
+      "description": "JWT signing secret key (must be at least 256 bits)",
+      "generator": "secret"
+    },
+    "OPENAI_API_KEY": {
+      "description": "OpenAI API key for AI conversation engine",
+      "required": true
+    },
+    "WHATSAPP_ACCESS_TOKEN": {
+      "description": "WhatsApp Business API access token",
+      "required": false
+    },
+    "WHATSAPP_PHONE_NUMBER_ID": {
+      "description": "WhatsApp Business phone number ID",
+      "required": false
+    },
+    "WHATSAPP_APP_SECRET": {
+      "description": "WhatsApp App secret for webhook verification",
+      "required": false
+    },
+    "WHATSAPP_VERIFY_TOKEN": {
+      "description": "WhatsApp webhook verification token",
+      "value": "slotme-webhook-verify"
+    },
+    "CORS_ALLOWED_ORIGINS": {
+      "description": "Allowed CORS origins (comma-separated)",
+      "value": "https://your-frontend-app.herokuapp.com"
+    }
+  }
+}
