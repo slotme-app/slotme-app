@@ -1,0 +1,45 @@
+<section th:fragment="benefits" class="py-24 relative overflow-hidden bg-gradient-to-br from-gray-900 via-purple-950 to-gray-900 text-white">
+  <!-- Background radial gradient spots -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-accent-rose/10 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="font-display text-4xl font-bold mb-4" th:text="#{benefits.title}">Results That Speak</h2>
+    </div>
+
+    <!-- Stats grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Stat 1 -->
+      <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 text-center hover:bg-white/10 transition-all duration-300">
+        <div class="font-display text-5xl font-bold bg-gradient-to-r from-primary-light to-accent-rose bg-clip-text text-transparent mb-3"
+             th:text="#{benefits.1.value}">2-4 hrs</div>
+        <p class="text-gray-300" th:text="#{benefits.1.label}">Saved per day on admin tasks</p>
+      </div>
+
+      <!-- Stat 2 -->
+      <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 text-center hover:bg-white/10 transition-all duration-300">
+        <div class="font-display text-5xl font-bold bg-gradient-to-r from-primary-light to-accent-rose bg-clip-text text-transparent mb-3"
+             th:text="#{benefits.2.value}">40%+</div>
+        <p class="text-gray-300" th:text="#{benefits.2.label}">More slots filled automatically</p>
+      </div>
+
+      <!-- Stat 3 -->
+      <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 text-center hover:bg-white/10 transition-all duration-300">
+        <div class="font-display text-5xl font-bold bg-gradient-to-r from-primary-light to-accent-rose bg-clip-text text-transparent mb-3"
+             th:text="#{benefits.3.value}">24/7</div>
+        <p class="text-gray-300" th:text="#{benefits.3.label}">Booking availability for clients</p>
+      </div>
+
+      <!-- Stat 4 -->
+      <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 text-center hover:bg-white/10 transition-all duration-300">
+        <div class="font-display text-5xl font-bold bg-gradient-to-r from-primary-light to-accent-rose bg-clip-text text-transparent mb-3"
+             th:text="#{benefits.4.value}">0</div>
+        <p class="text-gray-300" th:text="#{benefits.4.label}">Missed calls and lost bookings</p>
+      </div>
+    </div>
+  </div>
+</section>
