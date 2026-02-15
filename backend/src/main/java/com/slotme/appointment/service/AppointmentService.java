@@ -7,8 +7,12 @@ import com.slotme.appointment.entity.AppointmentStatus;
 import com.slotme.appointment.event.*;
 import com.slotme.appointment.repository.AppointmentHistoryRepository;
 import com.slotme.appointment.repository.AppointmentRepository;
+import com.slotme.client.entity.Client;
+import com.slotme.client.repository.ClientRepository;
 import com.slotme.common.exception.ConflictException;
 import com.slotme.common.exception.ResourceNotFoundException;
+import com.slotme.master.entity.Master;
+import com.slotme.master.repository.MasterRepository;
 import com.slotme.security.SecurityUtils;
 import com.slotme.service.entity.SalonService;
 import com.slotme.service.repository.SalonServiceRepository;
@@ -30,6 +34,8 @@ public class AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final AppointmentHistoryRepository historyRepository;
     private final SalonServiceRepository salonServiceRepository;
+    private final MasterRepository masterRepository;
+    private final ClientRepository clientRepository;
     private final EntityManager entityManager;
     private final ApplicationEventPublisher eventPublisher;
     private final Counter appointmentCreatedCounter;
@@ -38,6 +44,8 @@ public class AppointmentService {
     public AppointmentService(AppointmentRepository appointmentRepository,
                               AppointmentHistoryRepository historyRepository,
                               SalonServiceRepository salonServiceRepository,
+                              MasterRepository masterRepository,
+                              ClientRepository clientRepository,
                               EntityManager entityManager,
                               ApplicationEventPublisher eventPublisher,
                               Counter appointmentCreatedCounter,
@@ -45,6 +53,8 @@ public class AppointmentService {
         this.appointmentRepository = appointmentRepository;
         this.historyRepository = historyRepository;
         this.salonServiceRepository = salonServiceRepository;
+        this.masterRepository = masterRepository;
+        this.clientRepository = clientRepository;
         this.entityManager = entityManager;
         this.eventPublisher = eventPublisher;
         this.appointmentCreatedCounter = appointmentCreatedCounter;
@@ -252,12 +262,26 @@ public class AppointmentService {
     }
 
     private AppointmentResponse toResponse(Appointment a) {
+        String masterName = masterRepository.findById(a.getMasterId())
+                .map(Master::getDisplayName).orElse(null);
+        String clientName = clientRepository.findById(a.getClientId())
+                .map(c -> {
+                    String first = c.getFirstName() != null ? c.getFirstName() : "";
+                    String last = c.getLastName() != null ? c.getLastName() : "";
+                    return (first + " " + last).trim();
+                }).orElse(null);
+        String serviceName = salonServiceRepository.findById(a.getServiceId())
+                .map(SalonService::getName).orElse(null);
+
         return new AppointmentResponse(
                 a.getId().toString(),
                 a.getSalonId().toString(),
                 a.getMasterId().toString(),
+                masterName,
                 a.getClientId().toString(),
+                clientName,
                 a.getServiceId().toString(),
+                serviceName,
                 a.getStatus(),
                 a.getStartAt(),
                 a.getEndAt(),
