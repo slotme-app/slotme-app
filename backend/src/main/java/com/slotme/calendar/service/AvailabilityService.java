@@ -1,5 +1,7 @@
 package com.slotme.calendar.service;
 
+import com.slotme.appointment.entity.Appointment;
+import com.slotme.appointment.repository.AppointmentRepository;
 import com.slotme.calendar.dto.*;
 import com.slotme.calendar.entity.AvailabilityRule;
 import com.slotme.calendar.entity.Calendar;
@@ -29,17 +31,20 @@ public class AvailabilityService {
     private final TimeBlockRepository timeBlockRepository;
     private final MasterRepository masterRepository;
     private final SalonServiceRepository salonServiceRepository;
+    private final AppointmentRepository appointmentRepository;
 
     public AvailabilityService(CalendarRepository calendarRepository,
                                 AvailabilityRuleRepository availabilityRuleRepository,
                                 TimeBlockRepository timeBlockRepository,
                                 MasterRepository masterRepository,
-                                SalonServiceRepository salonServiceRepository) {
+                                SalonServiceRepository salonServiceRepository,
+                                AppointmentRepository appointmentRepository) {
         this.calendarRepository = calendarRepository;
         this.availabilityRuleRepository = availabilityRuleRepository;
         this.timeBlockRepository = timeBlockRepository;
         this.masterRepository = masterRepository;
         this.salonServiceRepository = salonServiceRepository;
+        this.appointmentRepository = appointmentRepository;
     }
 
     // --- Availability Rules Management ---
@@ -157,6 +162,18 @@ public class AvailabilityService {
                     LocalTime blockStart = block.getStartAt().atZone(zoneId).toLocalTime();
                     LocalTime blockEnd = block.getEndAt().atZone(zoneId).toLocalTime();
                     availableWindows = subtractBlock(availableWindows, blockStart, blockEnd);
+                }
+
+                // Subtract existing confirmed appointments (with buffer)
+                List<Appointment> appointments = appointmentRepository
+                        .findConflicting(master.getId(), dayStart, dayEnd);
+                int bufferMinutes = service.getBufferMinutes();
+                for (Appointment appt : appointments) {
+                    LocalTime apptStart = appt.getStartAt().atZone(zoneId).toLocalTime();
+                    LocalTime apptEnd = appt.getEndAt().atZone(zoneId).toLocalTime();
+                    // Extend blocked window by buffer to ensure master has break between appointments
+                    LocalTime apptEndWithBuffer = apptEnd.plusMinutes(bufferMinutes);
+                    availableWindows = subtractBlock(availableWindows, apptStart, apptEndWithBuffer);
                 }
 
                 // Generate discrete slots

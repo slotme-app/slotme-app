@@ -25,6 +25,15 @@ export interface UpdateAppointmentRequest {
   notes?: string
 }
 
+// Maps backend field names (startAt/endAt) to frontend field names (startTime/endTime)
+export function mapAppointment(apt: any): Appointment {
+  return {
+    ...apt,
+    startTime: apt.startTime ?? apt.startAt,
+    endTime: apt.endTime ?? apt.endAt,
+  }
+}
+
 export interface AvailableSlot {
   startTime: string
   endTime: string
@@ -42,29 +51,29 @@ export async function getAppointments(
   )
   const data = response.data
   // Backend may return a paginated response or a plain array
-  if (Array.isArray(data)) return data
-  return data.content ?? []
+  const list = Array.isArray(data) ? data : (data.content ?? [])
+  return list.map(mapAppointment)
 }
 
 export async function getAppointment(
   salonId: string,
   appointmentId: string,
 ): Promise<Appointment> {
-  const response = await apiClient.get<Appointment>(
+  const response = await apiClient.get(
     `/salons/${salonId}/appointments/${appointmentId}`,
   )
-  return response.data
+  return mapAppointment(response.data)
 }
 
 export async function createAppointment(
   salonId: string,
   data: CreateAppointmentRequest,
 ): Promise<Appointment> {
-  const response = await apiClient.post<Appointment>(
+  const response = await apiClient.post(
     `/salons/${salonId}/appointments`,
     data,
   )
-  return response.data
+  return mapAppointment(response.data)
 }
 
 export async function updateAppointment(
@@ -72,11 +81,11 @@ export async function updateAppointment(
   appointmentId: string,
   data: UpdateAppointmentRequest,
 ): Promise<Appointment> {
-  const response = await apiClient.put<Appointment>(
+  const response = await apiClient.put(
     `/salons/${salonId}/appointments/${appointmentId}`,
     data,
   )
-  return response.data
+  return mapAppointment(response.data)
 }
 
 export async function cancelAppointment(
@@ -102,5 +111,13 @@ export async function getAvailableSlots(
   )
   const data = response.data
   if (Array.isArray(data)) return data
-  return data.content ?? []
+  const slots = data.slots ?? data.content ?? []
+  return slots.flatMap((masterSlot: any) =>
+    (masterSlot.availableTimes ?? []).map((time: any) => ({
+      startTime: `${masterSlot.date}T${time.start}`,
+      endTime: `${masterSlot.date}T${time.end}`,
+      masterId: masterSlot.masterId,
+      masterName: masterSlot.masterName,
+    }))
+  )
 }
