@@ -102,5 +102,5 @@ export async function getAvailableSlots(
   )
   const data = response.data
   if (Array.isArray(data)) return data
-  return data.content ?? []
+  return data.slots ?? data.content ?? []
 }
