@@ -2,7 +2,7 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
       <!-- Logo -->
-      <a th:href="@{'/' + (lang == 'en' ? '' : lang)}" class="flex items-center gap-2">
+      <a th:href="@{${lang == 'en' ? '/' : '/' + lang}}" class="flex items-center gap-2">
         <div class="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
           <img src="/marketing/images/icons/sparkles.svg" alt="" class="w-5 h-5">
         </div>
