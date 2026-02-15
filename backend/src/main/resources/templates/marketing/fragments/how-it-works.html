@@ -1,0 +1,65 @@
+<section th:fragment="howItWorks" id="how-it-works" class="py-24 scroll-mt-20 relative overflow-hidden">
+  <!-- Subtle rose background gradient -->
+  <div class="absolute inset-0 bg-gradient-to-br from-accent-rose/5 to-primary/5 pointer-events-none" aria-hidden="true"></div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="font-display text-4xl font-bold text-dark mb-4" th:text="#{howItWorks.title}">How It Works</h2>
+    </div>
+
+    <!-- Steps grid -->
+    <div class="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+      <!-- Connector lines (desktop only) -->
+      <div class="hidden lg:block absolute top-10 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-primary/20 via-primary/40 to-primary/20" aria-hidden="true"></div>
+
+      <!-- Step 1 -->
+      <div class="text-center">
+        <div class="relative inline-flex items-center justify-center mb-6">
+          <div class="absolute w-20 h-20 rounded-full bg-primary/10 blur-xl" aria-hidden="true"></div>
+          <div class="relative w-20 h-20 rounded-full bg-gradient-primary flex items-center justify-center">
+            <span class="text-2xl font-bold text-white">1</span>
+          </div>
+        </div>
+        <h3 class="font-display text-xl font-semibold text-dark mb-3" th:text="#{howItWorks.1.title}">Sign Up</h3>
+        <p class="text-gray-600" th:text="#{howItWorks.1.desc}">Create your account and set up your salon profile in minutes.</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="text-center">
+        <div class="relative inline-flex items-center justify-center mb-6">
+          <div class="absolute w-20 h-20 rounded-full bg-primary/10 blur-xl" aria-hidden="true"></div>
+          <div class="relative w-20 h-20 rounded-full bg-gradient-primary flex items-center justify-center">
+            <span class="text-2xl font-bold text-white">2</span>
+          </div>
+        </div>
+        <h3 class="font-display text-xl font-semibold text-dark mb-3" th:text="#{howItWorks.2.title}">Add Services</h3>
+        <p class="text-gray-600" th:text="#{howItWorks.2.desc}">Configure your services, pricing, and availability schedule.</p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="text-center">
+        <div class="relative inline-flex items-center justify-center mb-6">
+          <div class="absolute w-20 h-20 rounded-full bg-primary/10 blur-xl" aria-hidden="true"></div>
+          <div class="relative w-20 h-20 rounded-full bg-gradient-primary flex items-center justify-center">
+            <span class="text-2xl font-bold text-white">3</span>
+          </div>
+        </div>
+        <h3 class="font-display text-xl font-semibold text-dark mb-3" th:text="#{howItWorks.3.title}">Share Your Link</h3>
+        <p class="text-gray-600" th:text="#{howItWorks.3.desc}">Share your personalized booking page with clients via any channel.</p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="text-center">
+        <div class="relative inline-flex items-center justify-center mb-6">
+          <div class="absolute w-20 h-20 rounded-full bg-primary/10 blur-xl" aria-hidden="true"></div>
+          <div class="relative w-20 h-20 rounded-full bg-gradient-primary flex items-center justify-center">
+            <span class="text-2xl font-bold text-white">4</span>
+          </div>
+        </div>
+        <h3 class="font-display text-xl font-semibold text-dark mb-3" th:text="#{howItWorks.4.title}">Grow Your Business</h3>
+        <p class="text-gray-600" th:text="#{howItWorks.4.desc}">Let AI handle bookings while you focus on delivering great service.</p>
+      </div>
+    </div>
+  </div>
+</section>
