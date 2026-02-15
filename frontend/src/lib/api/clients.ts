@@ -1,6 +1,7 @@
 import apiClient from './client'
 import type { Client, ClientNote, Appointment } from '@/types/models'
 import type { PaginatedResponse } from '@/types/api'
+import { mapAppointment } from './appointments'
 
 export interface ClientListParams {
   search?: string
@@ -117,8 +118,8 @@ export async function getClientAppointments(
     `/salons/${salonId}/clients/${clientId}/appointments`,
   )
   const data = response.data
-  if (Array.isArray(data)) return data
-  return data.content ?? []
+  const list = Array.isArray(data) ? data : (data.content ?? [])
+  return list.map(mapAppointment)
 }
 
 export async function getClientNotes(
