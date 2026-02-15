@@ -1,0 +1,66 @@
+<section th:fragment="features" id="features" class="py-24 scroll-mt-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="font-display text-4xl font-bold text-dark mb-4" th:text="#{features.title}">Everything You Need</h2>
+      <p class="text-lg text-gray-600" th:text="#{features.subtitle}">Powerful tools to transform your salon operations</p>
+    </div>
+
+    <!-- Feature cards grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Feature 1: AI Receptionist -->
+      <div class="feature-card group rounded-3xl bg-gradient-to-br from-white to-gray-50 border border-gray-200 hover:border-primary/30 p-8 transition-all duration-300">
+        <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
+          <img src="/marketing/images/icons/sparkles.svg" alt="" class="w-6 h-6">
+        </div>
+        <h3 class="font-display text-xl font-semibold text-dark mb-3" th:text="#{features.1.title}">AI Receptionist</h3>
+        <p class="text-gray-600" th:text="#{features.1.desc}">24/7 intelligent booking assistant that handles appointments while you focus on clients.</p>
+      </div>
+
+      <!-- Feature 2: Smart Scheduling -->
+      <div class="feature-card group rounded-3xl bg-gradient-to-br from-white to-gray-50 border border-gray-200 hover:border-primary/30 p-8 transition-all duration-300">
+        <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
+          <img src="/marketing/images/icons/calendar.svg" alt="" class="w-6 h-6">
+        </div>
+        <h3 class="font-display text-xl font-semibold text-dark mb-3" th:text="#{features.2.title}">Smart Scheduling</h3>
+        <p class="text-gray-600" th:text="#{features.2.desc}">Intelligent calendar management that optimizes your schedule and fills empty slots.</p>
+      </div>
+
+      <!-- Feature 3: Instant Notifications -->
+      <div class="feature-card group rounded-3xl bg-gradient-to-br from-white to-gray-50 border border-gray-200 hover:border-primary/30 p-8 transition-all duration-300">
+        <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
+          <img src="/marketing/images/icons/bell.svg" alt="" class="w-6 h-6">
+        </div>
+        <h3 class="font-display text-xl font-semibold text-dark mb-3" th:text="#{features.3.title}">Instant Notifications</h3>
+        <p class="text-gray-600" th:text="#{features.3.desc}">Automated reminders and confirmations keep both you and your clients informed.</p>
+      </div>
+
+      <!-- Feature 4: Client Communication -->
+      <div class="feature-card group rounded-3xl bg-gradient-to-br from-white to-gray-50 border border-gray-200 hover:border-primary/30 p-8 transition-all duration-300">
+        <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
+          <img src="/marketing/images/icons/message-circle.svg" alt="" class="w-6 h-6">
+        </div>
+        <h3 class="font-display text-xl font-semibold text-dark mb-3" th:text="#{features.4.title}">Client Communication</h3>
+        <p class="text-gray-600" th:text="#{features.4.desc}">Seamless messaging with clients for booking changes, follow-ups, and promotions.</p>
+      </div>
+
+      <!-- Feature 5: Auto Rescheduling -->
+      <div class="feature-card group rounded-3xl bg-gradient-to-br from-white to-gray-50 border border-gray-200 hover:border-primary/30 p-8 transition-all duration-300">
+        <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
+          <img src="/marketing/images/icons/refresh-cw.svg" alt="" class="w-6 h-6">
+        </div>
+        <h3 class="font-display text-xl font-semibold text-dark mb-3" th:text="#{features.5.title}">Auto Rescheduling</h3>
+        <p class="text-gray-600" th:text="#{features.5.desc}">Smart rebooking handles cancellations and fills gaps automatically.</p>
+      </div>
+
+      <!-- Feature 6: Analytics Dashboard -->
+      <div class="feature-card group rounded-3xl bg-gradient-to-br from-white to-gray-50 border border-gray-200 hover:border-primary/30 p-8 transition-all duration-300">
+        <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
+          <img src="/marketing/images/icons/bar-chart.svg" alt="" class="w-6 h-6">
+        </div>
+        <h3 class="font-display text-xl font-semibold text-dark mb-3" th:text="#{features.6.title}">Analytics Dashboard</h3>
+        <p class="text-gray-600" th:text="#{features.6.desc}">Track bookings, revenue, and client trends with real-time insights.</p>
+      </div>
+    </div>
+  </div>
+</section>
