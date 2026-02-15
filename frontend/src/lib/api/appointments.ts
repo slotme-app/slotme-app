@@ -105,8 +105,8 @@ export async function getAvailableSlots(
   const slots = data.slots ?? data.content ?? []
   return slots.flatMap((masterSlot: any) =>
     (masterSlot.availableTimes ?? []).map((time: any) => ({
-      startTime: time.start,
-      endTime: time.end,
+      startTime: `${masterSlot.date}T${time.start}`,
+      endTime: `${masterSlot.date}T${time.end}`,
       masterId: masterSlot.masterId,
       masterName: masterSlot.masterName,
     }))
