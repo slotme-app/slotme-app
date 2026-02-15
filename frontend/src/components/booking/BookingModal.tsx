@@ -86,7 +86,7 @@ export function BookingModal({
       clientId: selectedClient.id,
       serviceId: selectedService.id,
       masterId: selectedMaster.id,
-      startTime: selectedSlot.startTime,
+      startTime: new Date(selectedSlot.startTime).toISOString(),
       notes: notes || undefined,
     })
   }
