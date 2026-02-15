@@ -1,50 +1,45 @@
-<nav th:fragment="nav" class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      <!-- Logo -->
-      <a th:href="@{${lang == 'en' ? '/' : '/' + lang}}" class="flex items-center gap-2">
-        <div class="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
-          <img src="/marketing/images/icons/sparkles.svg" alt="" class="w-5 h-5">
-        </div>
-        <span class="font-display text-2xl font-semibold text-dark">SlotMe</span>
-      </a>
+<nav th:fragment="nav" class="nav-bar">
+  <div class="nav-inner">
+    <!-- Logo -->
+    <a th:href="@{${lang == 'en' ? '/' : '/' + lang}}" class="nav-logo">
+      <div class="nav-logo-icon">
+        <img src="/marketing/images/icons/sparkles.svg" alt="">
+      </div>
+      <span class="nav-logo-text">SlotMe</span>
+    </a>
 
-      <!-- Desktop nav links -->
-      <div class="hidden md:flex items-center gap-8">
-        <a href="#features" class="nav-link" th:text="#{nav.features}">Features</a>
-        <a href="#how-it-works" class="nav-link" th:text="#{nav.howItWorks}">How It Works</a>
-        <a href="#faq" class="nav-link" th:text="#{nav.faq}">FAQ</a>
+    <!-- Desktop nav links -->
+    <div class="nav-links">
+      <a href="#features" class="nav-link" th:text="#{nav.features}">Features</a>
+      <a href="#how-it-works" class="nav-link" th:text="#{nav.howItWorks}">How It Works</a>
+      <a href="#faq" class="nav-link" th:text="#{nav.faq}">FAQ</a>
+    </div>
+
+    <!-- Right side: lang switcher + auth -->
+    <div class="nav-right">
+      <!-- Language switcher -->
+      <div class="lang-switcher">
+        <a th:href="@{/}" th:classappend="${lang == 'en'} ? 'lang-active' : 'lang-inactive'" class="lang-btn">EN</a>
+        <a th:href="@{/ru}" th:classappend="${lang == 'ru'} ? 'lang-active' : 'lang-inactive'" class="lang-btn">RU</a>
+        <a th:href="@{/pl}" th:classappend="${lang == 'pl'} ? 'lang-active' : 'lang-inactive'" class="lang-btn">PL</a>
       </div>
 
-      <!-- Right side: lang switcher + auth -->
-      <div class="flex items-center gap-4">
-        <!-- Language switcher -->
-        <div class="flex items-center gap-1 bg-gray-100 rounded-full p-1">
-          <a th:href="@{/}" th:classappend="${lang == 'en'} ? 'lang-active' : 'lang-inactive'" class="lang-btn">EN</a>
-          <a th:href="@{/ru}" th:classappend="${lang == 'ru'} ? 'lang-active' : 'lang-inactive'" class="lang-btn">RU</a>
-          <a th:href="@{/pl}" th:classappend="${lang == 'pl'} ? 'lang-active' : 'lang-inactive'" class="lang-btn">PL</a>
-        </div>
+      <a href="/login" class="nav-link nav-auth-link" th:text="#{nav.login}">Log In</a>
+      <a href="/register" class="btn-primary nav-auth-link" th:text="#{nav.signup}">Sign Up</a>
 
-        <a href="/login" class="hidden md:inline-block nav-link" th:text="#{nav.login}">Log In</a>
-        <a href="/register" class="hidden md:inline-block btn-primary" th:text="#{nav.signup}">Sign Up</a>
-
-        <!-- Mobile hamburger -->
-        <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="Menu">
-          <img src="/marketing/images/icons/menu.svg" alt="" class="w-6 h-6">
-        </button>
-      </div>
+      <!-- Mobile hamburger -->
+      <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Menu">
+        <img src="/marketing/images/icons/menu.svg" alt="">
+      </button>
     </div>
   </div>
 
   <!-- Mobile menu (hidden by default) -->
-  <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 px-4 py-4">
-    <div class="flex flex-col gap-4">
-      <a href="#features" class="nav-link" th:text="#{nav.features}">Features</a>
-      <a href="#how-it-works" class="nav-link" th:text="#{nav.howItWorks}">How It Works</a>
-      <a href="#faq" class="nav-link" th:text="#{nav.faq}">FAQ</a>
-      <hr class="border-gray-200">
-      <a href="/login" class="nav-link" th:text="#{nav.login}">Log In</a>
-      <a href="/register" class="btn-primary text-center" th:text="#{nav.signup}">Sign Up</a>
-    </div>
+  <div id="mobile-menu" class="mobile-menu hidden">
+    <a href="#features" th:text="#{nav.features}">Features</a>
+    <a href="#how-it-works" th:text="#{nav.howItWorks}">How It Works</a>
+    <a href="#faq" th:text="#{nav.faq}">FAQ</a>
+    <a href="/login" th:text="#{nav.login}">Log In</a>
+    <a href="/register" class="btn-primary" th:text="#{nav.signup}">Sign Up</a>
   </div>
 </nav>
