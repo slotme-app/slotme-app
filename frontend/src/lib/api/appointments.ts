@@ -102,5 +102,13 @@ export async function getAvailableSlots(
   )
   const data = response.data
   if (Array.isArray(data)) return data
-  return data.slots ?? data.content ?? []
+  const slots = data.slots ?? data.content ?? []
+  return slots.flatMap((masterSlot: any) =>
+    (masterSlot.availableTimes ?? []).map((time: any) => ({
+      startTime: time.start,
+      endTime: time.end,
+      masterId: masterSlot.masterId,
+      masterName: masterSlot.masterName,
+    }))
+  )
 }
