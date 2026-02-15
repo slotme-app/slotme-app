@@ -164,13 +164,16 @@ public class AvailabilityService {
                     availableWindows = subtractBlock(availableWindows, blockStart, blockEnd);
                 }
 
-                // Subtract existing confirmed appointments
+                // Subtract existing confirmed appointments (with buffer)
                 List<Appointment> appointments = appointmentRepository
                         .findConflicting(master.getId(), dayStart, dayEnd);
+                int bufferMinutes = service.getBufferMinutes();
                 for (Appointment appt : appointments) {
                     LocalTime apptStart = appt.getStartAt().atZone(zoneId).toLocalTime();
                     LocalTime apptEnd = appt.getEndAt().atZone(zoneId).toLocalTime();
-                    availableWindows = subtractBlock(availableWindows, apptStart, apptEnd);
+                    // Extend blocked window by buffer to ensure master has break between appointments
+                    LocalTime apptEndWithBuffer = apptEnd.plusMinutes(bufferMinutes);
+                    availableWindows = subtractBlock(availableWindows, apptStart, apptEndWithBuffer);
                 }
 
                 // Generate discrete slots
