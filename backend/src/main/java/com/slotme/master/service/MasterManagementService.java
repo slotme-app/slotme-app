@@ -15,6 +15,8 @@ import com.slotme.master.entity.MasterService;
 import com.slotme.master.repository.MasterRepository;
 import com.slotme.master.repository.MasterServiceRepository;
 import com.slotme.security.SecurityUtils;
+import com.slotme.service.entity.SalonService;
+import com.slotme.service.repository.SalonServiceRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,17 +31,20 @@ public class MasterManagementService {
     private final MasterServiceRepository masterServiceRepository;
     private final UserRepository userRepository;
     private final CalendarRepository calendarRepository;
+    private final SalonServiceRepository salonServiceRepository;
     private final PasswordEncoder passwordEncoder;
 
     public MasterManagementService(MasterRepository masterRepository,
                                     MasterServiceRepository masterServiceRepository,
                                     UserRepository userRepository,
                                     CalendarRepository calendarRepository,
+                                    SalonServiceRepository salonServiceRepository,
                                     PasswordEncoder passwordEncoder) {
         this.masterRepository = masterRepository;
         this.masterServiceRepository = masterServiceRepository;
         this.userRepository = userRepository;
         this.calendarRepository = calendarRepository;
+        this.salonServiceRepository = salonServiceRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -149,8 +154,13 @@ public class MasterManagementService {
     }
 
     private MasterResponse toResponse(Master master) {
-        List<String> serviceIds = masterServiceRepository.findByMasterId(master.getId()).stream()
+        List<MasterService> masterServices = masterServiceRepository.findByMasterId(master.getId());
+        List<String> serviceIds = masterServices.stream()
                 .map(ms -> ms.getServiceId().toString())
+                .toList();
+        List<String> serviceNames = masterServices.stream()
+                .map(ms -> salonServiceRepository.findById(ms.getServiceId())
+                        .map(SalonService::getName).orElse(ms.getServiceId().toString()))
                 .toList();
 
         // Look up user email/phone for frontend display
@@ -179,7 +189,7 @@ public class MasterManagementService {
                 status,
                 master.getSortOrder(),
                 serviceIds,
-                serviceIds,
+                serviceNames,
                 master.getCreatedAt()
         );
     }
