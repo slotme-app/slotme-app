@@ -344,15 +344,15 @@ function BookingRulesTab({
   onSaved: () => void
 }) {
   const bookingRulesSchema = z.object({
-    minAdvanceMinutes: z.coerce
+    minAdvanceMinutes: z
       .number()
       .min(0, 'Must be 0 or more')
       .max(10080, 'Max 7 days'),
-    maxFutureDays: z.coerce
+    maxFutureDays: z
       .number()
       .min(1, 'Must be at least 1')
       .max(365, 'Max 365 days'),
-    bufferMinutes: z.coerce
+    bufferMinutes: z
       .number()
       .min(0, 'Must be 0 or more')
       .max(120, 'Max 120 minutes'),
@@ -403,7 +403,7 @@ function BookingRulesTab({
             <Input
               id="minAdvanceMinutes"
               type="number"
-              {...register('minAdvanceMinutes')}
+              {...register('minAdvanceMinutes', { valueAsNumber: true })}
             />
             <p className="text-xs text-muted-foreground">
               How far in advance clients must book (e.g., 60 = 1 hour before)
@@ -422,7 +422,7 @@ function BookingRulesTab({
             <Input
               id="maxFutureDays"
               type="number"
-              {...register('maxFutureDays')}
+              {...register('maxFutureDays', { valueAsNumber: true })}
             />
             <p className="text-xs text-muted-foreground">
               How far in the future clients can book
@@ -441,7 +441,7 @@ function BookingRulesTab({
             <Input
               id="bufferMinutes"
               type="number"
-              {...register('bufferMinutes')}
+              {...register('bufferMinutes', { valueAsNumber: true })}
             />
             <p className="text-xs text-muted-foreground">
               Automatic gap between consecutive appointments

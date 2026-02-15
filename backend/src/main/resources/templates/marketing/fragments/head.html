@@ -9,16 +9,16 @@
   <meta property="og:title" th:content="#{seo.ogTitle}">
   <meta property="og:description" th:content="#{seo.description}">
   <meta property="og:image" content="/marketing/images/og-image.jpg">
-  <meta property="og:url" th:content="@{${baseUrl + '/' + (lang == 'en' ? '' : lang)}}">
+  <meta property="og:url" th:content="${lang == 'en'} ? ${baseUrl + '/'} : ${baseUrl + '/' + lang}">
 
   <!-- hreflang for SEO -->
-  <link rel="alternate" hreflang="en" th:href="@{${baseUrl + '/'}}">
-  <link rel="alternate" hreflang="ru" th:href="@{${baseUrl + '/ru'}}">
-  <link rel="alternate" hreflang="pl" th:href="@{${baseUrl + '/pl'}}">
-  <link rel="alternate" hreflang="x-default" th:href="@{${baseUrl + '/'}}">
+  <link rel="alternate" hreflang="en" th:href="${baseUrl + '/'}">
+  <link rel="alternate" hreflang="ru" th:href="${baseUrl + '/ru'}">
+  <link rel="alternate" hreflang="pl" th:href="${baseUrl + '/pl'}">
+  <link rel="alternate" hreflang="x-default" th:href="${baseUrl + '/'}">
 
   <!-- Canonical -->
-  <link rel="canonical" th:href="@{${baseUrl + '/' + (lang == 'en' ? '' : lang)}}">
+  <link rel="canonical" th:href="${lang == 'en'} ? ${baseUrl + '/'} : ${baseUrl + '/' + lang}">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
