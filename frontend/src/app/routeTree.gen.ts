@@ -9,9 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as MarketingRouteImport } from './routes/marketing'
 import { Route as DashboardRouteImport } from './routes/_dashboard'
 import { Route as AuthRouteImport } from './routes/_auth'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardMasterRouteImport } from './routes/_dashboard/master'
 import { Route as DashboardAdminRouteImport } from './routes/_dashboard/admin'
 import { Route as AuthRegisterRouteImport } from './routes/_auth/register'
@@ -38,17 +38,17 @@ import { Route as DashboardAdminMastersMasterIdRouteImport } from './routes/_das
 import { Route as DashboardAdminClientsClientIdRouteImport } from './routes/_dashboard/admin/clients/$clientId'
 import { Route as DashboardAdminChannelsConversationsRouteImport } from './routes/_dashboard/admin/channels/conversations'
 
+const MarketingRoute = MarketingRouteImport.update({
+  id: '/marketing',
+  path: '/marketing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/_dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/_auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardMasterRoute = DashboardMasterRouteImport.update({
@@ -193,7 +193,8 @@ const DashboardAdminChannelsConversationsRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof DashboardRouteWithChildren
+  '/marketing': typeof MarketingRoute
   '/login': typeof AuthLoginRoute
   '/password-reset': typeof AuthPasswordResetRoute
   '/register': typeof AuthRegisterRoute
@@ -221,7 +222,8 @@ export interface FileRoutesByFullPath {
   '/admin/settings/': typeof DashboardAdminSettingsIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof DashboardRouteWithChildren
+  '/marketing': typeof MarketingRoute
   '/login': typeof AuthLoginRoute
   '/password-reset': typeof AuthPasswordResetRoute
   '/register': typeof AuthRegisterRoute
@@ -248,9 +250,9 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/_auth': typeof AuthRouteWithChildren
   '/_dashboard': typeof DashboardRouteWithChildren
+  '/marketing': typeof MarketingRoute
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/password-reset': typeof AuthPasswordResetRoute
   '/_auth/register': typeof AuthRegisterRoute
@@ -281,6 +283,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/marketing'
     | '/login'
     | '/password-reset'
     | '/register'
@@ -309,6 +312,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/marketing'
     | '/login'
     | '/password-reset'
     | '/register'
@@ -334,9 +338,9 @@ export interface FileRouteTypes {
     | '/admin/settings'
   id:
     | '__root__'
-    | '/'
     | '/_auth'
     | '/_dashboard'
+    | '/marketing'
     | '/_auth/login'
     | '/_auth/password-reset'
     | '/_auth/register'
@@ -365,13 +369,20 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRouteWithChildren
   DashboardRoute: typeof DashboardRouteWithChildren
+  MarketingRoute: typeof MarketingRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/marketing': {
+      id: '/marketing'
+      path: '/marketing'
+      fullPath: '/marketing'
+      preLoaderRoute: typeof MarketingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_dashboard': {
       id: '/_dashboard'
       path: ''
@@ -384,13 +395,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_dashboard/master': {
@@ -661,9 +665,9 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AuthRoute: AuthRouteWithChildren,
   DashboardRoute: DashboardRouteWithChildren,
+  MarketingRoute: MarketingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
