@@ -1,0 +1,84 @@
+<section th:fragment="hero" class="relative min-h-screen flex items-center pt-16 overflow-hidden">
+  <!-- Background decorative orbs -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div class="absolute top-20 -left-32 w-96 h-96 bg-primary/20 rounded-full blur-3xl float-animation"></div>
+    <div class="absolute bottom-20 -right-32 w-96 h-96 bg-accent-rose/20 rounded-full blur-3xl float-animation" style="animation-delay: 2s;"></div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <!-- Text column -->
+      <div class="space-y-8">
+        <!-- Badge pill -->
+        <div class="fade-in-up inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
+          <img src="/marketing/images/icons/sparkles.svg" alt="" class="w-4 h-4">
+          <span class="text-sm font-medium text-primary" th:text="#{hero.badge}">AI-Powered Salon Management</span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="fade-in-up font-display text-5xl lg:text-6xl font-bold text-dark leading-tight" style="animation-delay: 0.1s;">
+          <span th:text="#{hero.title}">Your AI Receptionist</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="fade-in-up text-xl lg:text-2xl font-display text-primary font-medium" style="animation-delay: 0.2s;"
+           th:text="#{hero.subtitle}">Never miss a booking again</p>
+
+        <!-- Description -->
+        <p class="fade-in-up text-lg text-gray-600 max-w-lg" style="animation-delay: 0.3s;"
+           th:text="#{hero.description}">SlotMe uses AI to handle your salon bookings 24/7, so you can focus on what you do best.</p>
+
+        <!-- CTA buttons -->
+        <div class="fade-in-up flex flex-wrap gap-4" style="animation-delay: 0.4s;">
+          <a href="/register" class="btn-primary py-4 px-8 text-lg" th:text="#{hero.cta}">Get Started Free</a>
+          <a href="#features" class="btn-outline py-4 px-8 text-lg" th:text="#{hero.ctaAlt}">Watch Demo</a>
+        </div>
+      </div>
+
+      <!-- Visual column -->
+      <div class="fade-in-up lg:pl-8" style="animation-delay: 0.5s;">
+        <div class="relative bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
+          <!-- Calendar preview placeholder -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
+                  <img src="/marketing/images/icons/calendar.svg" alt="" class="w-5 h-5">
+                </div>
+                <div>
+                  <div class="font-semibold text-dark">Today's Schedule</div>
+                  <div class="text-sm text-gray-500">3 appointments</div>
+                </div>
+              </div>
+              <span class="px-3 py-1 bg-green-100 text-green-700 text-sm rounded-full">Live</span>
+            </div>
+            <!-- Placeholder appointment slots -->
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                <div class="w-1 h-10 bg-primary rounded-full"></div>
+                <div>
+                  <div class="text-sm font-medium text-dark">Hair Styling</div>
+                  <div class="text-xs text-gray-500">10:00 AM - 11:30 AM</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                <div class="w-1 h-10 bg-accent-rose rounded-full"></div>
+                <div>
+                  <div class="text-sm font-medium text-dark">Nail Art</div>
+                  <div class="text-xs text-gray-500">12:00 PM - 1:00 PM</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                <div class="w-1 h-10 bg-primary rounded-full"></div>
+                <div>
+                  <div class="text-sm font-medium text-dark">Color Treatment</div>
+                  <div class="text-xs text-gray-500">2:30 PM - 4:00 PM</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
