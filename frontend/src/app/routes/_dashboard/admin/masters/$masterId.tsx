@@ -16,6 +16,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useAuthStore } from '@/stores/authStore'
 import * as mastersApi from '@/lib/api/masters'
+import * as servicesApi from '@/lib/api/services'
 
 export const Route = createFileRoute('/_dashboard/admin/masters/$masterId')({
   component: MasterDetailPage,
@@ -39,6 +40,24 @@ function MasterDetailPage() {
     queryFn: () => mastersApi.getMaster(salonId, masterId),
     enabled: !!salonId,
   })
+
+  const { data: servicesData } = useQuery({
+    queryKey: ['services', salonId],
+    queryFn: () => servicesApi.getServices(salonId),
+    enabled: !!salonId,
+  })
+
+  // Build a lookup map from service ID to service name
+  const serviceNameMap = new Map<string, string>()
+  if (servicesData) {
+    const allServices = [
+      ...(servicesData.uncategorized ?? []),
+      ...(servicesData.categories ?? []).flatMap((c) => c.services),
+    ]
+    for (const s of allServices) {
+      serviceNameMap.set(s.id, s.name)
+    }
+  }
 
   if (isLoading) {
     return (
@@ -136,7 +155,7 @@ function MasterDetailPage() {
                 <div className="flex flex-wrap gap-2">
                   {master.services.map((service) => (
                     <Badge key={service} variant="secondary">
-                      {service}
+                      {serviceNameMap.get(service) ?? service}
                     </Badge>
                   ))}
                 </div>
