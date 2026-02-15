@@ -2,6 +2,8 @@ package com.slotme.auth.controller;
 
 import com.slotme.auth.dto.AuthResponse;
 import com.slotme.auth.dto.LoginRequest;
+import com.slotme.auth.dto.PasswordResetConfirmDto;
+import com.slotme.auth.dto.PasswordResetRequestDto;
 import com.slotme.auth.dto.RefreshRequest;
 import com.slotme.auth.dto.RegisterRequest;
 import com.slotme.auth.dto.UserProfileResponse;
@@ -56,6 +58,22 @@ public class AuthController {
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new ErrorResponse("TOKEN_EXPIRED", e.getMessage(), null));
+        }
+    }
+
+    @PostMapping("/password-reset/request")
+    public ResponseEntity<Void> requestPasswordReset(@Valid @RequestBody PasswordResetRequestDto request) {
+        authService.requestPasswordReset(request);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/password-reset/confirm")
+    public ResponseEntity<Void> confirmPasswordReset(@Valid @RequestBody PasswordResetConfirmDto request) {
+        try {
+            authService.confirmPasswordReset(request);
+            return ResponseEntity.ok().build();
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 

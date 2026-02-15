@@ -2,11 +2,15 @@ package com.slotme.auth.service;
 
 import com.slotme.auth.dto.AuthResponse;
 import com.slotme.auth.dto.LoginRequest;
+import com.slotme.auth.dto.PasswordResetConfirmDto;
+import com.slotme.auth.dto.PasswordResetRequestDto;
 import com.slotme.auth.dto.RegisterRequest;
 import com.slotme.auth.dto.UserProfileResponse;
+import com.slotme.auth.entity.PasswordResetToken;
 import com.slotme.auth.entity.RefreshToken;
 import com.slotme.auth.entity.User;
 import com.slotme.auth.entity.UserRole;
+import com.slotme.auth.repository.PasswordResetTokenRepository;
 import com.slotme.auth.repository.RefreshTokenRepository;
 import com.slotme.auth.repository.UserRepository;
 import com.slotme.common.exception.ConflictException;
@@ -17,21 +21,28 @@ import com.slotme.salon.repository.SalonRepository;
 import com.slotme.security.JwtService;
 import com.slotme.tenant.entity.Tenant;
 import com.slotme.tenant.repository.TenantRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @Service
 public class AuthService {
 
+    private static final Logger log = LoggerFactory.getLogger(AuthService.class);
+    private static final int PASSWORD_RESET_EXPIRY_HOURS = 1;
+
     private final UserRepository userRepository;
     private final TenantRepository tenantRepository;
     private final SalonRepository salonRepository;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final PasswordResetTokenRepository passwordResetTokenRepository;
     private final JwtService jwtService;
     private final JwtProperties jwtProperties;
     private final PasswordEncoder passwordEncoder;
@@ -40,6 +51,7 @@ public class AuthService {
                        TenantRepository tenantRepository,
                        SalonRepository salonRepository,
                        RefreshTokenRepository refreshTokenRepository,
+                       PasswordResetTokenRepository passwordResetTokenRepository,
                        JwtService jwtService,
                        JwtProperties jwtProperties,
                        PasswordEncoder passwordEncoder) {
@@ -47,6 +59,7 @@ public class AuthService {
         this.tenantRepository = tenantRepository;
         this.salonRepository = salonRepository;
         this.refreshTokenRepository = refreshTokenRepository;
+        this.passwordResetTokenRepository = passwordResetTokenRepository;
         this.jwtService = jwtService;
         this.jwtProperties = jwtProperties;
         this.passwordEncoder = passwordEncoder;
@@ -149,6 +162,46 @@ public class AuthService {
                 user.getTenantId().toString(),
                 user.getSalonId() != null ? user.getSalonId().toString() : null
         );
+    }
+
+    @Transactional
+    public void requestPasswordReset(PasswordResetRequestDto request) {
+        // Always return success to prevent email enumeration
+        userRepository.findByEmail(request.email()).ifPresent(user -> {
+            // Delete any existing reset tokens for this user
+            passwordResetTokenRepository.deleteByUserId(user.getId());
+
+            PasswordResetToken resetToken = new PasswordResetToken();
+            resetToken.setUserId(user.getId());
+            resetToken.setToken(UUID.randomUUID().toString());
+            resetToken.setExpiresAt(Instant.now().plus(PASSWORD_RESET_EXPIRY_HOURS, ChronoUnit.HOURS));
+            passwordResetTokenRepository.save(resetToken);
+
+            // TODO: Send password reset email with token
+            log.info("Password reset token generated for user: {}", user.getEmail());
+        });
+    }
+
+    @Transactional
+    public void confirmPasswordReset(PasswordResetConfirmDto request) {
+        PasswordResetToken resetToken = passwordResetTokenRepository.findByToken(request.token())
+                .orElseThrow(() -> new BadCredentialsException("Invalid or expired reset token"));
+
+        if (resetToken.getExpiresAt().isBefore(Instant.now())) {
+            passwordResetTokenRepository.delete(resetToken);
+            throw new BadCredentialsException("Password reset token has expired");
+        }
+
+        User user = userRepository.findById(resetToken.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User", resetToken.getUserId()));
+
+        user.setPasswordHash(passwordEncoder.encode(request.newPassword()));
+        userRepository.save(user);
+
+        // Clean up the used token
+        passwordResetTokenRepository.delete(resetToken);
+
+        log.info("Password reset completed for user: {}", user.getEmail());
     }
 
     private AuthResponse buildAuthResponse(User user, UUID tenantId, UUID salonId) {

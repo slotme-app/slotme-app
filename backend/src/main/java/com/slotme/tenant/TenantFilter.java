@@ -29,6 +29,7 @@ public class TenantFilter extends OncePerRequestFilter {
             "/api/v1/auth/refresh",
             "/api/v1/auth/forgot-password",
             "/api/v1/auth/reset-password",
+            "/api/v1/auth/password-reset/",
             "/api/v1/webhooks/",
             "/actuator/",
             "/swagger-ui",
