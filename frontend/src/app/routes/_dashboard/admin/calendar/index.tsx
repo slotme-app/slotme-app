@@ -34,7 +34,7 @@ function CalendarPage() {
   const [detailOpen, setDetailOpen] = useState(false)
   const [bookingOpen, setBookingOpen] = useState(false)
 
-  const { data: appointments = [], isLoading } = useQuery({
+  const { data: appointments = [] } = useQuery({
     queryKey: ['appointments', salonId, dateRange.start, dateRange.end],
     queryFn: () =>
       appointmentsApi.getAppointments(salonId, {

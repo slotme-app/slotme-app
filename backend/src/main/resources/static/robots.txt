@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Allow: /ru
+Allow: /pl
+Disallow: /api/
+Disallow: /admin/
+Disallow: /master/
+Disallow: /login
+Disallow: /register
+Sitemap: https://slotme.ai/sitemap.xml

@@ -1,0 +1,23 @@
+<section th:fragment="cta" class="cta-section py-24 bg-gradient-cta">
+  <!-- Background blurred orb -->
+  <div class="cta-blob" aria-hidden="true"></div>
+
+  <div class="container max-w-4xl relative text-center">
+    <!-- Headline -->
+    <h2 class="cta-title mb-6" th:text="#{cta.title}">Ready to Transform Your Salon?</h2>
+
+    <!-- Subtitle -->
+    <p class="cta-subtitle mb-12" th:text="#{cta.subtitle}">Join hundreds of salons already using SlotMe to grow their business.</p>
+
+    <!-- CTA button -->
+    <a href="/register" class="btn-primary btn-primary-xl" th:text="#{cta.button}">
+      Get Started Free
+    </a>
+
+    <!-- Trust signal -->
+    <div class="cta-check justify-center mt-6">
+      <img src="/marketing/images/icons/check.svg" alt="">
+      <span th:text="#{cta.noCreditCard}">No credit card required</span>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,43 @@
+<head th:fragment="head">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="#{seo.title}">SlotMe - AI Virtual Receptionist</title>
+  <meta name="description" th:content="#{seo.description}">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" th:content="#{seo.ogTitle}">
+  <meta property="og:description" th:content="#{seo.description}">
+  <meta property="og:image" content="/marketing/images/og-image.jpg">
+  <meta property="og:url" th:content="${lang == 'en'} ? ${baseUrl + '/'} : ${baseUrl + '/' + lang}">
+
+  <!-- hreflang for SEO -->
+  <link rel="alternate" hreflang="en" th:href="${baseUrl + '/'}">
+  <link rel="alternate" hreflang="ru" th:href="${baseUrl + '/ru'}">
+  <link rel="alternate" hreflang="pl" th:href="${baseUrl + '/pl'}">
+  <link rel="alternate" hreflang="x-default" th:href="${baseUrl + '/'}">
+
+  <!-- Canonical -->
+  <link rel="canonical" th:href="${lang == 'en'} ? ${baseUrl + '/'} : ${baseUrl + '/' + lang}">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/marketing/css/marketing.css">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "SlotMe",
+    "description": "AI-powered virtual receptionist for beauty salons",
+    "url": "https://slotme.ai",
+    "logo": "https://slotme.ai/marketing/images/logo.png",
+    "sameAs": []
+  }
+  </script>
+</head>

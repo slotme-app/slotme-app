@@ -1,0 +1,77 @@
+<section th:fragment="faq" id="faq" class="py-24">
+  <div class="container max-w-4xl">
+    <!-- Section header -->
+    <div class="text-center mb-16">
+      <h2 class="section-title mb-4" th:text="#{faq.title}">Frequently Asked Questions</h2>
+    </div>
+
+    <!-- FAQ accordion -->
+    <div class="faq-list">
+      <!-- FAQ 1 -->
+      <div class="faq-item">
+        <button data-faq-toggle class="faq-toggle" aria-expanded="false" aria-controls="faq-answer-1">
+          <span class="faq-question" th:text="#{faq.1.q}">How does the AI receptionist work?</span>
+          <img data-chevron src="/marketing/images/icons/chevron-down.svg" alt="" class="faq-chevron">
+        </button>
+        <div id="faq-answer-1" class="faq-answer hidden">
+          <p th:text="#{faq.1.a}">Our AI receptionist uses advanced natural language processing to handle booking requests via chat and voice, managing your calendar automatically.</p>
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="faq-item">
+        <button data-faq-toggle class="faq-toggle" aria-expanded="false" aria-controls="faq-answer-2">
+          <span class="faq-question" th:text="#{faq.2.q}">Is there a free trial?</span>
+          <img data-chevron src="/marketing/images/icons/chevron-down.svg" alt="" class="faq-chevron">
+        </button>
+        <div id="faq-answer-2" class="faq-answer hidden">
+          <p th:text="#{faq.2.a}">Yes! You can sign up for free and start using SlotMe immediately. No credit card required.</p>
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="faq-item">
+        <button data-faq-toggle class="faq-toggle" aria-expanded="false" aria-controls="faq-answer-3">
+          <span class="faq-question" th:text="#{faq.3.q}">Can I manage multiple staff members?</span>
+          <img data-chevron src="/marketing/images/icons/chevron-down.svg" alt="" class="faq-chevron">
+        </button>
+        <div id="faq-answer-3" class="faq-answer hidden">
+          <p th:text="#{faq.3.a}">Absolutely. SlotMe supports multiple masters per salon, each with their own schedule, services, and booking page.</p>
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="faq-item">
+        <button data-faq-toggle class="faq-toggle" aria-expanded="false" aria-controls="faq-answer-4">
+          <span class="faq-question" th:text="#{faq.4.q}">What languages are supported?</span>
+          <img data-chevron src="/marketing/images/icons/chevron-down.svg" alt="" class="faq-chevron">
+        </button>
+        <div id="faq-answer-4" class="faq-answer hidden">
+          <p th:text="#{faq.4.a}">SlotMe currently supports English, Russian, and Polish, with more languages coming soon.</p>
+        </div>
+      </div>
+
+      <!-- FAQ 5 -->
+      <div class="faq-item">
+        <button data-faq-toggle class="faq-toggle" aria-expanded="false" aria-controls="faq-answer-5">
+          <span class="faq-question" th:text="#{faq.5.q}">How do clients book appointments?</span>
+          <img data-chevron src="/marketing/images/icons/chevron-down.svg" alt="" class="faq-chevron">
+        </button>
+        <div id="faq-answer-5" class="faq-answer hidden">
+          <p th:text="#{faq.5.a}">Clients can book through your personalized booking page, via the AI chat assistant, or by contacting your salon directly.</p>
+        </div>
+      </div>
+
+      <!-- FAQ 6 -->
+      <div class="faq-item">
+        <button data-faq-toggle class="faq-toggle" aria-expanded="false" aria-controls="faq-answer-6">
+          <span class="faq-question" th:text="#{faq.6.q}">How do I get started?</span>
+          <img data-chevron src="/marketing/images/icons/chevron-down.svg" alt="" class="faq-chevron">
+        </button>
+        <div id="faq-answer-6" class="faq-answer hidden">
+          <p th:text="#{faq.6.a}">Simply click the "Sign Up" button, create your account, and follow the guided setup to configure your salon profile and services. You'll be ready to accept bookings in minutes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

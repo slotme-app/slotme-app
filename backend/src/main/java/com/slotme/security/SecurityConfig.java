@@ -45,6 +45,13 @@ public class SecurityConfig {
                                 .includeSubDomains(true)
                                 .maxAgeInSeconds(31536000));
                     }
+                    headers.contentSecurityPolicy(csp -> csp
+                            .policyDirectives("default-src 'self'; " +
+                                    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+                                    "font-src 'self' https://fonts.gstatic.com; " +
+                                    "img-src 'self' data:; " +
+                                    "script-src 'self'; " +
+                                    "frame-ancestors 'none'"));
                 })
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/api/v1/auth/register", "/api/v1/auth/login",

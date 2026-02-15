@@ -1,0 +1,57 @@
+<footer th:fragment="footer" class="footer">
+  <div class="container">
+    <!-- Footer grid -->
+    <div class="footer-grid">
+      <!-- Column 1: Logo + tagline -->
+      <div>
+        <a th:href="@{${lang == 'en' ? '/' : '/' + lang}}" class="footer-logo">
+          <div class="footer-logo-icon">
+            <img src="/marketing/images/icons/sparkles.svg" alt="">
+          </div>
+          <span class="footer-logo-text">SlotMe</span>
+        </a>
+        <p class="footer-tagline" th:text="#{footer.tagline}">AI-powered virtual receptionist for modern salons.</p>
+      </div>
+
+      <!-- Column 2: Product -->
+      <div>
+        <h4 class="footer-heading" th:text="#{footer.product}">Product</h4>
+        <ul class="footer-links">
+          <li><a href="#features" th:text="#{nav.features}">Features</a></li>
+          <li><a href="#how-it-works" th:text="#{nav.howItWorks}">How It Works</a></li>
+          <li><a href="#faq" th:text="#{nav.faq}">FAQ</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Legal -->
+      <div>
+        <h4 class="footer-heading" th:text="#{footer.legal}">Legal</h4>
+        <ul class="footer-links">
+          <li><a href="#" th:text="#{footer.privacy}">Privacy Policy</a></li>
+          <li><a href="#" th:text="#{footer.terms}">Terms of Service</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Contact -->
+      <div>
+        <h4 class="footer-heading" th:text="#{footer.contact}">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:support@slotme.ai">support@slotme.ai</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <!-- Copyright -->
+      <p class="footer-copyright" th:text="#{footer.copyright(${currentYear})}">© 2026 SlotMe. All rights reserved.</p>
+
+      <!-- Secondary language switcher -->
+      <div class="lang-switcher-dark">
+        <a th:href="@{/}" th:classappend="${lang == 'en'} ? 'lang-active-dark' : 'lang-inactive-dark'" class="lang-btn">EN</a>
+        <a th:href="@{/ru}" th:classappend="${lang == 'ru'} ? 'lang-active-dark' : 'lang-inactive-dark'" class="lang-btn">RU</a>
+        <a th:href="@{/pl}" th:classappend="${lang == 'pl'} ? 'lang-active-dark' : 'lang-inactive-dark'" class="lang-btn">PL</a>
+      </div>
+    </div>
+  </div>
+</footer>

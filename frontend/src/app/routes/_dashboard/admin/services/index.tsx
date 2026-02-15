@@ -47,10 +47,10 @@ const DURATION_OPTIONS = [15, 30, 45, 60, 90, 120, 150, 180]
 const serviceSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   description: z.string().optional(),
-  duration: z.coerce.number().min(15, 'Minimum 15 minutes'),
-  price: z.coerce.number().min(0, 'Price must be 0 or more'),
+  duration: z.number().min(15, 'Minimum 15 minutes'),
+  price: z.number().min(0, 'Price must be 0 or more'),
   categoryId: z.string().min(1, 'Category is required'),
-  bufferTime: z.coerce.number().min(0).optional(),
+  bufferTime: z.number().min(0).optional(),
 })
 
 type ServiceFormData = z.infer<typeof serviceSchema>
@@ -360,7 +360,7 @@ function AddServiceForm({
             id="service-price"
             type="number"
             step="0.01"
-            {...register('price')}
+            {...register('price', { valueAsNumber: true })}
           />
           {errors.price && (
             <p className="text-sm text-destructive">{errors.price.message}</p>
@@ -400,7 +400,7 @@ function AddServiceForm({
         <Input
           id="service-buffer"
           type="number"
-          {...register('bufferTime')}
+          {...register('bufferTime', { valueAsNumber: true })}
         />
       </div>
 

@@ -1,0 +1,38 @@
+<section th:fragment="benefits" class="benefits-section py-24 bg-gradient-benefits">
+  <!-- Background radial gradient overlay -->
+  <div class="benefits-bg-overlay" aria-hidden="true"></div>
+
+  <div class="container relative">
+    <!-- Section header -->
+    <div class="text-center max-w-3xl mb-16">
+      <h2 class="benefits-title mb-4" th:text="#{benefits.title}">Results That Speak</h2>
+    </div>
+
+    <!-- Stats grid -->
+    <div class="stats-grid">
+      <!-- Stat 1 -->
+      <div class="stat-card">
+        <div class="stat-value gradient-text mb-3" th:text="#{benefits.1.value}">2-4 hrs</div>
+        <p class="stat-label" th:text="#{benefits.1.label}">Saved per day on admin tasks</p>
+      </div>
+
+      <!-- Stat 2 -->
+      <div class="stat-card">
+        <div class="stat-value gradient-text mb-3" th:text="#{benefits.2.value}">40%+</div>
+        <p class="stat-label" th:text="#{benefits.2.label}">More slots filled automatically</p>
+      </div>
+
+      <!-- Stat 3 -->
+      <div class="stat-card">
+        <div class="stat-value gradient-text mb-3" th:text="#{benefits.3.value}">24/7</div>
+        <p class="stat-label" th:text="#{benefits.3.label}">Booking availability for clients</p>
+      </div>
+
+      <!-- Stat 4 -->
+      <div class="stat-card">
+        <div class="stat-value gradient-text mb-3" th:text="#{benefits.4.value}">0</div>
+        <p class="stat-label" th:text="#{benefits.4.label}">Missed calls and lost bookings</p>
+      </div>
+    </div>
+  </div>
+</section>

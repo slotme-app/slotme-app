@@ -1,0 +1,45 @@
+<nav th:fragment="nav" class="nav-bar">
+  <div class="nav-inner">
+    <!-- Logo -->
+    <a th:href="@{${lang == 'en' ? '/' : '/' + lang}}" class="nav-logo">
+      <div class="nav-logo-icon">
+        <img src="/marketing/images/icons/sparkles.svg" alt="">
+      </div>
+      <span class="nav-logo-text">SlotMe</span>
+    </a>
+
+    <!-- Desktop nav links -->
+    <div class="nav-links">
+      <a href="#features" class="nav-link" th:text="#{nav.features}">Features</a>
+      <a href="#how-it-works" class="nav-link" th:text="#{nav.howItWorks}">How It Works</a>
+      <a href="#faq" class="nav-link" th:text="#{nav.faq}">FAQ</a>
+    </div>
+
+    <!-- Right side: lang switcher + auth -->
+    <div class="nav-right">
+      <!-- Language switcher -->
+      <div class="lang-switcher">
+        <a th:href="@{/}" th:classappend="${lang == 'en'} ? 'lang-active' : 'lang-inactive'" class="lang-btn">EN</a>
+        <a th:href="@{/ru}" th:classappend="${lang == 'ru'} ? 'lang-active' : 'lang-inactive'" class="lang-btn">RU</a>
+        <a th:href="@{/pl}" th:classappend="${lang == 'pl'} ? 'lang-active' : 'lang-inactive'" class="lang-btn">PL</a>
+      </div>
+
+      <a href="/login" class="nav-link nav-auth-link" th:text="#{nav.login}">Log In</a>
+      <a href="/register" class="btn-primary nav-auth-link" th:text="#{nav.signup}">Sign Up</a>
+
+      <!-- Mobile hamburger -->
+      <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Menu">
+        <img src="/marketing/images/icons/menu.svg" alt="">
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu (hidden by default) -->
+  <div id="mobile-menu" class="mobile-menu hidden">
+    <a href="#features" th:text="#{nav.features}">Features</a>
+    <a href="#how-it-works" th:text="#{nav.howItWorks}">How It Works</a>
+    <a href="#faq" th:text="#{nav.faq}">FAQ</a>
+    <a href="/login" th:text="#{nav.login}">Log In</a>
+    <a href="/register" class="btn-primary" th:text="#{nav.signup}">Sign Up</a>
+  </div>
+</nav>
