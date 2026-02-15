@@ -34,12 +34,16 @@ interface RawMaster {
   salonId: string
   userId: string
   displayName?: string
+  email?: string
+  phone?: string
   bio?: string
   specialization?: string
   avatarUrl?: string
   active: boolean
+  status?: string
   sortOrder?: number
   serviceIds?: string[]
+  services?: string[]
   createdAt: string
 }
 
@@ -48,13 +52,13 @@ function mapMaster(raw: RawMaster): Master {
     id: raw.id,
     userId: raw.userId,
     name: raw.displayName ?? '',
-    email: '',
-    phone: undefined,
+    email: raw.email ?? '',
+    phone: raw.phone,
     bio: raw.bio,
     avatarUrl: raw.avatarUrl,
-    status: raw.active ? 'ACTIVE' : 'INACTIVE',
+    status: (raw.status as Master['status']) ?? (raw.active ? 'ACTIVE' : 'INACTIVE'),
     salonId: raw.salonId,
-    services: raw.serviceIds ?? [],
+    services: raw.services ?? raw.serviceIds ?? [],
     createdAt: raw.createdAt,
   }
 }
